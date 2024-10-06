@@ -4,16 +4,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by tuannt7 on 06/10/2024
  */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ErrorDTO {
-    private LocalDateTime timestamp;
-    private int code;
-    private String error;
+	private Date timestamp;
+	private int status;
+	private String path;
+	private List<String> errors = new ArrayList<>();
+
+	public void addError(String message) {
+		this.errors.add(message);
+	}
+
 }

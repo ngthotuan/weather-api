@@ -1,17 +1,18 @@
 package com.skyapi.weatherforecast.location;
 
-import java.util.List;
-
+import com.skyapi.weatherforecast.common.Location;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-import com.skyapi.weatherforecast.common.Location;
+import java.util.List;
 
 /**
  * Created by tuannt7 on 06/10/2024
  */
 
+@Repository
 public interface LocationRepository extends CrudRepository<Location, String> {
 
 	@Query("SELECT l FROM Location l WHERE l.trashed = false")
