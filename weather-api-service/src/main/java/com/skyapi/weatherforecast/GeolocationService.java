@@ -40,7 +40,7 @@ public class GeolocationService {
 				throw new GeolocationException("Geolocation failed with status: " + result.getStatus());
 			}
 
-			log.debug("ipAddress: {}, result: {}", ipAddress, result);
+			log.info("ipAddress: {}, result: {}", ipAddress, result);
 
 			return new Location(result.getCity(), result.getRegion(), result.getCountryLong(), result.getCountryShort());
 

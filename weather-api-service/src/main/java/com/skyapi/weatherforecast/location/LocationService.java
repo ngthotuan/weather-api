@@ -1,12 +1,11 @@
 package com.skyapi.weatherforecast.location;
 
-import java.util.List;
-
+import com.skyapi.weatherforecast.common.Location;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.skyapi.weatherforecast.common.Location;
+import java.util.List;
 
 /**
  * Created by tuannt7 on 06/10/2024
@@ -37,7 +36,7 @@ public class LocationService {
 		Location locationInDB = repo.findByCode(code);
 
 		if (locationInDB == null) {
-			throw new LocationNotFoundException("No location found with the given code: " + code);
+			throw new LocationNotFoundException(code);
 		}
 
 		locationInDB.setCityName(locationInRequest.getCityName());
@@ -53,7 +52,7 @@ public class LocationService {
 		Location location = repo.findByCode(code);
 
 		if (location == null) {
-			throw new LocationNotFoundException("No location found with the given code: " + code);
+			throw new LocationNotFoundException(code);
 		}
 
 		repo.trashByCode(code);

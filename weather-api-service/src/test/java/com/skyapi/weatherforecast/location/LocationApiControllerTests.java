@@ -215,14 +215,15 @@ public class LocationApiControllerTests {
 	@Test
 	public void testUpdateShouldReturn404NotFound() throws Exception {
 		Location location = new Location();
-		location.setCode("ABCDEF");
+		String code = "ABCDEF";
+		location.setCode(code);
 		location.setCityName("Los Angeles");
 		location.setRegionName("California");
 		location.setCountryCode("US");
 		location.setCountryName("United States of America");
 		location.setEnabled(true);
 
-		Mockito.when(service.update(location)).thenThrow(new LocationNotFoundException("No location found"));
+		Mockito.when(service.update(location)).thenThrow(new LocationNotFoundException(code));
 
 		String bodyContent = mapper.writeValueAsString(location);
 
