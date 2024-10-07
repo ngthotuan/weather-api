@@ -4,7 +4,7 @@ package com.skyapi.weatherforecast;
  * Created by tuannt7 on 06/10/2024
  */
 
-public class GeolocationException extends Exception {
+public class GeolocationException extends RuntimeException {
 
 	public GeolocationException(String message, Throwable cause) {
 		super(message, cause);

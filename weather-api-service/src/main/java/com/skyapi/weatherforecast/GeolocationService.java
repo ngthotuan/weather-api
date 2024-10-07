@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by tuannt7 on 06/10/2024
@@ -15,14 +16,18 @@ import java.io.IOException;
 @Slf4j
 @Service
 public class GeolocationService {
-	private final static String DBPath = "ip2locdb/IP2LOCATION-LITE-DB3.BIN";
+	private final static String DBPath = "/ip2locdb/IP2LOCATION-LITE-DB3.BIN";
 	private final static IP2Location ipLocator = new IP2Location();
 
-	public GeolocationService() {
-		try {
-			ipLocator.Open(DBPath);
-		} catch (IOException ex) {
-			log.error(ex.getMessage(), ex);
+	static {
+		try (InputStream inputStream = GeolocationService.class.getResourceAsStream(DBPath)){
+			if (inputStream == null) {
+				throw new IOException("IP2Location database not found");
+			}
+            byte[] ip2locBytes = inputStream.readAllBytes();
+			ipLocator.Open(ip2locBytes);
+		} catch (Exception ex) {
+			log.error("read IP2Location db exception: {}", ex.getMessage(), ex);
 		}
 	}
 
@@ -35,7 +40,7 @@ public class GeolocationService {
 				throw new GeolocationException("Geolocation failed with status: " + result.getStatus());
 			}
 
-			log.info(result.toString());
+			log.debug("ipAddress: {}, result: {}", ipAddress, result);
 
 			return new Location(result.getCity(), result.getRegion(), result.getCountryLong(), result.getCountryShort());
 
