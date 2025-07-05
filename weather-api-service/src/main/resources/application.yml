@@ -1,6 +1,7 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/weatherdb
+#    url: jdbc:mysql://localhost:3306/weatherdb
+    url: jdbc:h2:mem:weatherdb
     username: weatherdb
     password: password
     hikari:
